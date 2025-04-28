@@ -2,35 +2,31 @@
 
 namespace PetshopDoLeo.ConsoleApp.ModuloDono;
 
-public class TelaDono : TelaBase
-{
-    public TelaDono(string nomeEntidade, RepositorioBase repositorio) : base(nomeEntidade, repositorio)
-    {
+public class TelaDono : TelaBase<Dono>, ITelaCrud
+{    
+    public TelaDono(string nomeEntidade, RepositorioDono repositorio) : base(nomeEntidade, repositorio)
+    {        
     }
 
-    public override EntidadeBase ObterDados()
+    protected override void ExibirCabecalhoTabela()
     {
-        Console.Write( "Digite o nome: " );
+        Console.WriteLine("{0, -10} | {1, -20}", "Id", "Nome");
+    }
+
+    protected override void ExibirLinhaTabela(Dono dono)
+    {        
+        Console.WriteLine("{0, -10} | {1, -20}", dono.Id, dono.Nome);
+    }
+
+    protected override Dono ObterDados()
+    {
+        Console.Write("Digite o nome: ");
         string nome = Console.ReadLine();
 
-        Dono novoDono = new Dono();
-        novoDono.Nome = nome;
+        Dono novoDono = new Dono(nome);
 
         return novoDono;
     }
 
-    public override void VisualizarRegistros(bool exibirTitulo)
-    {
-        Console.WriteLine("Visualizando os Donos de Pets");
-
-        EntidadeBase[] donos = repositorio.SelecionarRegistros();
-
-        foreach (Dono d in donos)
-        {
-            if (d != null) 
-                Console.WriteLine(d);
-        }
-        
-        Console.ReadLine();
-    }
+    
 }

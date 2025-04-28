@@ -1,18 +1,18 @@
 ﻿namespace PetshopDoLeo.ConsoleApp.Compartilhado;
 
-public abstract class RepositorioBase
+public abstract class RepositorioBase<TEntidade> where TEntidade : EntidadeBase<TEntidade>
 {
-    private EntidadeBase[] registros = new EntidadeBase[100];
+    private TEntidade[] registros = new TEntidade[100];
     private int contadorIds = 0;
 
-    public void CadastrarRegistro(EntidadeBase novoRegistro)
+    public void CadastrarRegistro(TEntidade novoRegistro)
     {
         novoRegistro.Id = ++contadorIds;
 
         InserirRegistro(novoRegistro);
     }
 
-    public bool EditarRegistro(int idRegistro, EntidadeBase registroEditado)
+    public bool EditarRegistro(int idRegistro, TEntidade registroEditado)
     {
         for (int i = 0; i < registros.Length; i++)
         {
@@ -47,16 +47,16 @@ public abstract class RepositorioBase
         return false;
     }
 
-    public EntidadeBase[] SelecionarRegistros()
+    public TEntidade[] SelecionarRegistros()
     {
         return registros;
     }
 
-    public EntidadeBase SelecionarRegistroPorId(int idRegistro)
+    public TEntidade SelecionarRegistroPorId(int idRegistro)
     {
         for (int i = 0; i < registros.Length; i++)
         {
-            EntidadeBase e = registros[i];
+            TEntidade e = registros[i];
 
             if (e == null)
                 continue;
@@ -68,7 +68,7 @@ public abstract class RepositorioBase
         return null;
     }
 
-    private void InserirRegistro(EntidadeBase registro)
+    private void InserirRegistro(TEntidade registro)
     {
         for (int i = 0; i < registros.Length; i++)
         {

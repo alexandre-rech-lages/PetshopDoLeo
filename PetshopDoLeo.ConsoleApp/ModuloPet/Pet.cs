@@ -1,23 +1,22 @@
 ﻿using PetshopDoLeo.ConsoleApp.Compartilhado;
 using PetshopDoLeo.ConsoleApp.ModuloDono;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetshopDoLeo.ConsoleApp.ModuloPet;
 
-public class Pet : EntidadeBase
-{
+public class Pet : EntidadeBase<Pet>
+{   
+    public Pet(string nome, Dono dono)
+    {
+        this.Nome = nome;
+        this.Dono = dono;
+    }
+
     public string Nome { get; set; }
 
     public Dono Dono { get; set; }
-
-    public override void AtualizarRegistro(EntidadeBase registroEditado)
+   
+    public override void AtualizarRegistro(Pet petEditado)
     {
-        Pet petEditado = (Pet)registroEditado;
-
         Nome = petEditado.Nome;
         Dono = petEditado.Dono;
     }
@@ -37,6 +36,8 @@ public class Pet : EntidadeBase
 
     public override string ToString()
     {
-        return "O nome do pet é: " + Nome + " e o seu dono é " + Dono.Nome;
+        return "Id: {Id}, e o nome do pet é " + Nome + " e o seu dono é o " + Dono.Nome;
     }
+
+   
 }

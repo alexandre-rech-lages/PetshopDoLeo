@@ -16,10 +16,13 @@ public class TelaPrincipal
     public TelaPrincipal()
     {
         repositorioDono = new RepositorioDono();
+        Dono novoDono = new Dono("Gabriel Velho");
+        repositorioDono.CadastrarRegistro(novoDono);
 
         telaDono = new TelaDono("Dono", repositorioDono);
 
         repositorioPet = new RepositorioPet();
+        repositorioPet.CadastrarRegistro(new Pet("Bob", novoDono));
 
         telaPet = new TelaPet("Pet", repositorioPet, telaDono, repositorioDono);
     }
@@ -44,7 +47,7 @@ public class TelaPrincipal
         EscolhoerOpcao();
     }
 
-    public TelaBase ObterTela()
+    public ITelaCrud ObterTela()
     {            
         if (opcaoPrincipal == '1')
             return telaDono;

@@ -1,17 +1,20 @@
-﻿namespace PetshopDoLeo.ConsoleApp.Compartilhado;
+﻿using PetshopDoLeo.ConsoleApp.ModuloDono;
+using PetshopDoLeo.ConsoleApp.ModuloPet;
 
-public abstract class TelaBase
+namespace PetshopDoLeo.ConsoleApp.Compartilhado;
+
+public abstract class TelaBase<TEntidade> where TEntidade : EntidadeBase<TEntidade>
 {
     protected string nomeEntidade;
-    protected RepositorioBase repositorio;
+    protected RepositorioBase<TEntidade> repositorio;
 
-    protected TelaBase(string nomeEntidade, RepositorioBase repositorio)
+    protected TelaBase(string nomeEntidade, RepositorioBase<TEntidade> repositorio)
     {
         this.nomeEntidade = nomeEntidade;
         this.repositorio = repositorio;
     }
 
-    public void ExibirCabecalho()
+    protected void ExibirCabecalho()
     {
         Console.Clear();
         Console.WriteLine("--------------------------------------------");
@@ -51,7 +54,7 @@ public abstract class TelaBase
 
         Console.WriteLine();
 
-        EntidadeBase novoRegistro = ObterDados();
+        TEntidade novoRegistro = ObterDados();
 
         string erros = novoRegistro.Validar();
 
@@ -85,7 +88,7 @@ public abstract class TelaBase
 
         Console.WriteLine();
 
-        EntidadeBase registroEditado = ObterDados();
+        TEntidade registroEditado = ObterDados();
 
         string erros = registroEditado.Validar();
 
@@ -138,7 +141,28 @@ public abstract class TelaBase
         Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
 
-    public abstract void VisualizarRegistros(bool exibirTitulo);
+    public void VisualizarRegistros(bool exibirTitulo)
+    {
+        Console.WriteLine("Visualizando os " + nomeEntidade + "s");
 
-    public abstract EntidadeBase ObterDados();
+        ExibirCabecalhoTabela(); //escrita cabeçalho
+
+        TEntidade[] registros = repositorio.SelecionarRegistros();
+
+        foreach (TEntidade registro in registros)
+        {
+            if (registro != null)
+                ExibirLinhaTabela(registro); //escrita da linha
+        }
+
+        Console.ReadLine();
+    }
+
+    protected abstract void ExibirCabecalhoTabela();
+
+    protected abstract void ExibirLinhaTabela(TEntidade registro);
+
+    protected abstract TEntidade ObterDados();    
+
 }
+    

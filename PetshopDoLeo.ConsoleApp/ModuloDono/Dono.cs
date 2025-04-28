@@ -2,14 +2,17 @@
 
 namespace PetshopDoLeo.ConsoleApp.ModuloDono;
 
-public class Dono : EntidadeBase
+public class Dono : EntidadeBase<Dono>
 {
+    public Dono(string nome)
+    {
+        this.Nome = nome;
+    }
+
     public string Nome { get; set; }
 
-    public override void AtualizarRegistro(EntidadeBase registroEditado)
+    public override void AtualizarRegistro(Dono donoEditado)
     {
-        Dono donoEditado = (Dono)registroEditado;  
-
         Nome = donoEditado.Nome;
     }
 
@@ -19,11 +22,12 @@ public class Dono : EntidadeBase
 
         if (string.IsNullOrEmpty(Nome))
             erros += "O campo nome é obrigatório";
+
         return erros;
     }
 
     public override string ToString()
     {
-        return "Dono do Pet: " + Nome;
+        return $"Id: {Id}, nome: {Nome}";
     }
 }

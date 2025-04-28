@@ -38,8 +38,7 @@
 5 - Cria uma classe que herda de tela base
     
     -Implementa o método constructor
-    -Implementa o método Obter Registro
-    -Implementa o método visualizar registros
+    -Implementa o método Obter Registro    
 
 6 - Altera a classe Tela Principal para retornar uma determinada instancia de tela de acordo com 
 opção selecionada 

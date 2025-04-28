@@ -2,6 +2,6 @@
 
 namespace PetshopDoLeo.ConsoleApp.ModuloPet;
 
-public class RepositorioPet : RepositorioBase
+public class RepositorioPet : RepositorioBase<Pet>
 {
 }
