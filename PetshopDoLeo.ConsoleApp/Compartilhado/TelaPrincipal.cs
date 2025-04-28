@@ -1,0 +1,64 @@
+﻿using PetshopDoLeo.ConsoleApp.ModuloDono;
+using PetshopDoLeo.ConsoleApp.ModuloPet;
+
+namespace PetshopDoLeo.ConsoleApp.Compartilhado;
+
+public class TelaPrincipal
+{
+    public char opcaoPrincipal;  
+
+    private RepositorioDono repositorioDono;
+    private TelaDono telaDono;
+
+    private RepositorioPet repositorioPet;
+    private TelaPet telaPet;   
+
+    public TelaPrincipal()
+    {
+        repositorioDono = new RepositorioDono();
+
+        telaDono = new TelaDono("Dono", repositorioDono);
+
+        repositorioPet = new RepositorioPet();
+
+        telaPet = new TelaPet("Pet", repositorioPet, telaDono, repositorioDono);
+    }
+
+    public void ApresentarMenuPrincipal()
+    {
+        Console.Clear();
+
+        Console.WriteLine("----------------------------------------");
+        Console.WriteLine("|       Gestão do Petshop do Léo        |");
+        Console.WriteLine("----------------------------------------");
+
+        Console.WriteLine();
+
+        Console.WriteLine("1 - Cadastro de Donos");
+        Console.WriteLine("2 - Cadastro de Pets");
+       
+        Console.WriteLine("S - Sair");
+
+        Console.WriteLine();
+
+        EscolhoerOpcao();
+    }
+
+    public TelaBase ObterTela()
+    {            
+        if (opcaoPrincipal == '1')
+            return telaDono;
+
+        else if (opcaoPrincipal == '2')
+            return telaPet;
+
+        return null;
+    }
+
+    private void EscolhoerOpcao()
+    {
+        Console.Write("Escolha uma das opções: ");
+
+        opcaoPrincipal = Console.ReadLine()[0];
+    }
+}

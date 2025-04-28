@@ -1,0 +1,45 @@
+﻿1 - Copia o diretorio compartilhado para o projeto
+    -EntidadeBase
+    -RepositorioBase
+    -TelaBase
+    -Notificador
+    -TelaPrincipal
+
+2 - Altera o conteudo da classe Program
+	
+    TelaPrincipal telaPrincipal = new TelaPrincipal();
+
+    while (true)
+    {
+        telaPrincipal.ApresentarMenuPrincipal();
+
+        TelaBase telaSelecionada = telaPrincipal.ObterTela();
+
+        char opcaoEscolhida = telaSelecionada.ApresentarMenu();              
+
+        switch (opcaoEscolhida)
+        {
+            case '1': telaSelecionada.CadastrarRegistro(); break;
+            case '2': telaSelecionada.EditarRegistro(); break;
+            case '3': telaSelecionada.ExcluirRegistro(); break;
+            case '4': telaSelecionada.VisualizarRegistros(true); break;
+
+            default: break;
+        }
+    }
+
+3 - Cria uma classe que herda de entidade base
+    -Define os atributos da classe de dominio
+    -Implementa o método atualizar
+    -Implementa o método validar
+
+4 - Criar uma classe que herda de repositorio base
+
+5 - Cria uma classe que herda de tela base
+    
+    -Implementa o método constructor
+    -Implementa o método Obter Registro
+    -Implementa o método visualizar registros
+
+6 - Altera a classe Tela Principal para retornar uma determinada instancia de tela de acordo com 
+opção selecionada 
